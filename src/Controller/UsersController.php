@@ -11,22 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/users")
+ * @Route("/")
  */
 class UsersController extends AbstractController
 {
     /**
-     * @Route("/", name="users_index", methods={"GET"})
+     * @Route("/admin/users", name="users_index", methods={"GET"})
      */
     public function index(UsersRepository $usersRepository): Response
     {
-        return $this->render('users/index.html.twig', [
+        return $this->render('admin/users/index.html.twig', [
             'users' => $usersRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="users_new", methods={"GET","POST"})
+     * @Route("/admin/users/new", name="users_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -42,24 +42,24 @@ class UsersController extends AbstractController
             return $this->redirectToRoute('users_index');
         }
 
-        return $this->render('users/new.html.twig', [
+        return $this->render('admin/users/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="users_show", methods={"GET"})
+     * @Route("/admin/users/{id}", name="users_show", methods={"GET"})
      */
     public function show(Users $user): Response
     {
-        return $this->render('users/show.html.twig', [
+        return $this->render('admin/users/show.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @Route("/admin/users/{id}/edit", name="users_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Users $user): Response
     {
@@ -72,14 +72,14 @@ class UsersController extends AbstractController
             return $this->redirectToRoute('users_index');
         }
 
-        return $this->render('users/edit.html.twig', [
+        return $this->render('admin/users/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="users_delete", methods={"DELETE"})
+     * @Route("/admin/users/{id}", name="users_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Users $user): Response
     {
